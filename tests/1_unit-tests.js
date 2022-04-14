@@ -2,12 +2,13 @@ const chai = require('chai');
 chai.use(require('chai-string'));
 const { suite } = require('mocha');
 let assert = chai.assert;
-const ConvertHandler = require('../controllers/convertHandler.js');
+const {
+  ConvertHandler,
+  ERROR_INVALID_NUMBER,
+  ERROR_INVALID_UNIT,
+} = require('../controllers/convertHandler.js');
 
-let convertHandler = new ConvertHandler();
-
-const ERR_INVALID_NUMBER = 'invalid number';
-const ERR_INVALID_UNIT = 'invalid unit';
+const convertHandler = new ConvertHandler();
 
 suite('Unit Tests', function () {
   suite('Validate Input Number', function () {
@@ -28,10 +29,10 @@ suite('Unit Tests', function () {
       assert.equal(convertHandler.getNum('13.1/34lbs'), 0.38529);
     });
     test('should correctly return an error due to double fraction', () => {
-      assert.equal(convertHandler.getNum('3./1//5kg'), ERR_INVALID_NUMBER);
+      assert.equal(convertHandler.getNum('3./1//5kg'), ERROR_INVALID_NUMBER);
       assert.equal(
         convertHandler.getNum('13.1/34/13.1lbs'),
-        ERR_INVALID_NUMBER
+        ERROR_INVALID_NUMBER
       );
     });
     test('should correctly return 1 when no number provided', () => {
@@ -46,8 +47,8 @@ suite('Unit Tests', function () {
       assert.equal(convertHandler.getUnit('34Lbs'), 'lbs');
     });
     test('should correctly return an error due to invalid input unit', () => {
-      assert.startsWith(convertHandler.getUnit('5.3k'), ERR_INVALID_UNIT);
-      assert.startsWith(convertHandler.getUnit('34.13'), ERR_INVALID_UNIT);
+      assert.startsWith(convertHandler.getUnit('5.3k'), ERROR_INVALID_UNIT);
+      assert.startsWith(convertHandler.getUnit('34.13'), ERROR_INVALID_UNIT);
     });
     test('should correctly return the correct return unit', () => {
       assert.equal(convertHandler.getReturnUnit('lbs'), 'kg');
