@@ -19,11 +19,11 @@ module.exports = function (app) {
     const hasUnitErr = initUnit.startsWith(ERROR_INVALID_UNIT);
 
     if (hasNumErr && hasUnitErr) {
-      return res.status(422).json(`${ERROR_INVALID_NUMBER} and unit`);
+      return res.json(`${ERROR_INVALID_NUMBER} and unit`);
     } else if (hasNumErr) {
-      return res.status(422).json(ERROR_INVALID_NUMBER);
+      return res.json(ERROR_INVALID_NUMBER);
     } else if (hasUnitErr) {
-      return res.status(422).json(ERROR_INVALID_UNIT);
+      return res.json(ERROR_INVALID_UNIT);
     }
 
     const returnUnit = convertHandler.getReturnUnit(initUnit);

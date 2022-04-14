@@ -38,7 +38,7 @@ suite('Functional Tests', function () {
           .get('/api/convert')
           .query({ input })
           .end((_err, res) => {
-            assert.equal(res.status, 422);
+            assert.equal(res.status, 200);
             assert.equal(res.body, ERROR_INVALID_UNIT);
             done();
           });
@@ -53,7 +53,7 @@ suite('Functional Tests', function () {
           .get('/api/convert')
           .query({ input })
           .end((_err, res) => {
-            assert.equal(res.status, 422);
+            assert.equal(res.status, 200);
             assert.equal(res.body, ERROR_INVALID_NUMBER);
             done();
           });
@@ -68,7 +68,7 @@ suite('Functional Tests', function () {
           .get('/api/convert')
           .query({ input })
           .end((_err, res) => {
-            assert.equal(res.status, 422);
+            assert.equal(res.status, 200);
             assert.equal(res.body, ERROR_INVALID_NUMBER + ' and unit');
             done();
           });
